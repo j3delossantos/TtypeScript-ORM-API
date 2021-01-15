@@ -9,6 +9,7 @@ var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
 var user_routes_1 = __importDefault(require("./routes/user.routes"));
 var typeorm_1 = require("typeorm");
+var property_routes_1 = __importDefault(require("./routes/property.routes"));
 var app = express_1.default();
 typeorm_1.createConnection();
 //Midelwares
@@ -17,6 +18,7 @@ app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());
 //Routes
 app.use(user_routes_1.default);
+app.use(property_routes_1.default);
 var port = '4000';
 app.listen(port);
 console.log('Server on port: ' + port);

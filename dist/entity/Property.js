@@ -9,31 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Property = void 0;
 var typeorm_1 = require("typeorm");
-var Property_1 = require("./Property");
-var User = /** @class */ (function () {
-    function User() {
+var User_1 = require("./User");
+var Property = /** @class */ (function () {
+    function Property() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], User.prototype, "id", void 0);
+    ], Property.prototype, "id", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], User.prototype, "firstname", void 0);
+    ], Property.prototype, "name", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], User.prototype, "lastname", void 0);
+    ], Property.prototype, "description", void 0);
     __decorate([
-        typeorm_1.OneToMany(function () { return Property_1.Property; }, function (property) { return property.user; }),
-        __metadata("design:type", Array)
-    ], User.prototype, "property", void 0);
-    User = __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], Property.prototype, "address", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function () { return User_1.User; }, function (user) { return user.property; }, {
+            eager: true,
+            cascade: true
+        }),
+        __metadata("design:type", User_1.User)
+    ], Property.prototype, "user", void 0);
+    Property = __decorate([
         typeorm_1.Entity()
-    ], User);
-    return User;
+    ], Property);
+    return Property;
 }());
-exports.User = User;
+exports.Property = Property;

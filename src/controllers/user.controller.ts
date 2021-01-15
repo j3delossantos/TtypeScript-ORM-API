@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
+import { Property } from "../entity/Property";
 
 //Get all Users From DB
 export const getUsers = async (
@@ -26,6 +27,7 @@ export const createUsers = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  
   const newUser = getRepository(User).create(req.body);
   const results = await getRepository(User).save(newUser);
   return res.json(results);
