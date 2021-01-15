@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUsers = void 0;
+exports.deleteOneUser = exports.updateUser = exports.createUsers = exports.getOneUser = exports.getUsers = void 0;
 var typeorm_1 = require("typeorm");
 var User_1 = require("../entity/User");
+//Get all Users From DB
 var getUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var users;
     return __generator(this, function (_a) {
@@ -51,3 +52,63 @@ var getUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
     });
 }); };
 exports.getUsers = getUsers;
+//Get One User by id From DB
+var getOneUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(User_1.User).findOne(req.params.id)];
+            case 1:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
+        }
+    });
+}); };
+exports.getOneUser = getOneUser;
+//Insert Users into DB
+var createUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var newUser, results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                newUser = typeorm_1.getRepository(User_1.User).create(req.body);
+                return [4 /*yield*/, typeorm_1.getRepository(User_1.User).save(newUser)];
+            case 1:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
+        }
+    });
+}); };
+exports.createUsers = createUsers;
+//Update one Users by id
+var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(User_1.User).findOne(req.params.id)];
+            case 1:
+                user = _a.sent();
+                if (!user) return [3 /*break*/, 3];
+                typeorm_1.getRepository(User_1.User).merge(user, req.body);
+                return [4 /*yield*/, typeorm_1.getRepository(User_1.User).save(user)];
+            case 2:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
+            case 3: return [2 /*return*/, res.status(404).json({ msg: 'Not User Found' })];
+        }
+    });
+}); };
+exports.updateUser = updateUser;
+//Delete One User by id From DB
+var deleteOneUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(User_1.User).delete(req.params.id)];
+            case 1:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
+        }
+    });
+}); };
+exports.deleteOneUser = deleteOneUser;
